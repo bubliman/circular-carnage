@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://be0u0pshybx7g"]
+
+[ext_resource type="Texture2D" uid="uid://c8mmuw73avmlk" path="res://icon.svg" id="1_skos7"]
+[ext_resource type="Script" path="res://ball.gd" id="1_vbnqp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obxyp"]
+size = Vector2(128, 126)
+
+[node name="Ball" type="Area2D"]
+script = ExtResource("1_vbnqp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_skos7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_obxyp")
+
+[node name="Boost" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Boost" to="." method="_on_boost_timeout"]

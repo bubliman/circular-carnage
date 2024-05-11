@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dxc8tprt8usp8"]
+
+[node name="Projectile_Spawner" type="Node2D"]
