@@ -1,27 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://dacdll26am80l"]
+[gd_scene load_steps=7 format=3 uid="uid://dacdll26am80l"]
 
 [ext_resource type="PackedScene" uid="uid://be0u0pshybx7g" path="res://ball.tscn" id="1_1be8g"]
 [ext_resource type="PackedScene" uid="uid://dfik3dhkejiri" path="res://wall.tscn" id="1_py6dt"]
 [ext_resource type="PackedScene" uid="uid://bumyyrsa5sm6j" path="res://player.tscn" id="2_qxu7q"]
+[ext_resource type="PackedScene" uid="uid://dxc8tprt8usp8" path="res://projectile_spawner.tscn" id="4_6shqm"]
+
+[sub_resource type="Gradient" id="Gradient_1mx75"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bu671"]
+gradient = SubResource("Gradient_1mx75")
 
 [node name="Main" type="Node"]
 
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_bu671")
+stretch_mode = 1
+
 [node name="Wall" parent="." groups=["up"] instance=ExtResource("1_py6dt")]
-position = Vector2(207, 2)
+position = Vector2(198, -152)
 
 [node name="Wall2" parent="." groups=["down"] instance=ExtResource("1_py6dt")]
-position = Vector2(295, 784)
+position = Vector2(280, 790)
 
 [node name="Wall3" parent="." groups=["right"] instance=ExtResource("1_py6dt")]
-position = Vector2(424, 412)
+position = Vector2(584, 421)
 rotation = 1.5708
+scale = Vector2(-10.5054, 1.06674)
 
 [node name="Wall4" parent="." groups=["left"] instance=ExtResource("1_py6dt")]
-position = Vector2(1, 409)
+position = Vector2(-10, 412)
 rotation = 1.5708
 
 [node name="Player" parent="." instance=ExtResource("2_qxu7q")]
-position = Vector2(156, 186)
+position = Vector2(210, 687)
 
 [node name="Ball" parent="." instance=ExtResource("1_1be8g")]
-position = Vector2(176, 359)
+position = Vector2(211, 391)
+
+[node name="Projectile_Spawner" parent="." instance=ExtResource("4_6shqm")]
+position = Vector2(206, 169)

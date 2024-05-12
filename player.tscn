@@ -1,21 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://bumyyrsa5sm6j"]
+[gd_scene load_steps=4 format=3 uid="uid://bumyyrsa5sm6j"]
 
-[ext_resource type="Texture2D" uid="uid://c8mmuw73avmlk" path="res://icon.svg" id="1_nbjgl"]
 [ext_resource type="Script" path="res://player.gd" id="1_qrcad"]
+[ext_resource type="Texture2D" uid="uid://dp38yixu2pymx" path="res://assets/player.svg" id="2_asgu4"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_i1t2k"]
-diffuse_texture = ExtResource("1_nbjgl")
+[sub_resource type="CircleShape2D" id="CircleShape2D_oeqqr"]
+radius = 60.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tatoq"]
-size = Vector2(128, 128)
-
-[node name="Player" type="Area2D" groups=["player"]]
+[node name="Player" type="AnimatableBody2D" groups=["player"]]
 script = ExtResource("1_qrcad")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
-texture = SubResource("CanvasTexture_i1t2k")
+scale = Vector2(0.211765, 0.211765)
+texture = ExtResource("2_asgu4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 scale = Vector2(0.3, 0.3)
-shape = SubResource("RectangleShape2D_tatoq")
+shape = SubResource("CircleShape2D_oeqqr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 55.0
+offset_bottom = 33.0
