@@ -1,47 +1,65 @@
-[gd_scene load_steps=7 format=3 uid="uid://dacdll26am80l"]
+[gd_scene load_steps=9 format=3 uid="uid://dacdll26am80l"]
 
 [ext_resource type="PackedScene" uid="uid://be0u0pshybx7g" path="res://ball.tscn" id="1_1be8g"]
+[ext_resource type="Script" path="res://main.gd" id="1_a2ljc"]
 [ext_resource type="PackedScene" uid="uid://dfik3dhkejiri" path="res://wall.tscn" id="1_py6dt"]
 [ext_resource type="PackedScene" uid="uid://bumyyrsa5sm6j" path="res://player.tscn" id="2_qxu7q"]
-[ext_resource type="PackedScene" uid="uid://dxc8tprt8usp8" path="res://projectile_spawner.tscn" id="4_6shqm"]
+[ext_resource type="PackedScene" uid="uid://b75ua8n0f6rrm" path="res://enemies/test_enemy.tscn" id="4_og3u7"]
+[ext_resource type="PackedScene" uid="uid://d0rgpi3drpvyq" path="res://hud.tscn" id="6_ie68a"]
 
 [sub_resource type="Gradient" id="Gradient_1mx75"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bu671"]
 gradient = SubResource("Gradient_1mx75")
+width = 300
 
 [node name="Main" type="Node"]
+script = ExtResource("1_a2ljc")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -302.0
+offset_right = 302.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_bu671")
-stretch_mode = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 55.0
+offset_bottom = 37.0
 
 [node name="Wall" parent="." groups=["up"] instance=ExtResource("1_py6dt")]
-position = Vector2(198, -152)
+position = Vector2(970, -153)
 
 [node name="Wall2" parent="." groups=["down"] instance=ExtResource("1_py6dt")]
-position = Vector2(280, 790)
+position = Vector2(966, 1090)
 
 [node name="Wall3" parent="." groups=["right"] instance=ExtResource("1_py6dt")]
-position = Vector2(584, 421)
+position = Vector2(1425, 534)
 rotation = 1.5708
-scale = Vector2(-10.5054, 1.06674)
+scale = Vector2(-1.46536, 1.06674)
 
 [node name="Wall4" parent="." groups=["left"] instance=ExtResource("1_py6dt")]
-position = Vector2(-10, 412)
+position = Vector2(654, 525)
 rotation = 1.5708
+scale = Vector2(1.48, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_qxu7q")]
-position = Vector2(210, 687)
+position = Vector2(922, 820)
+
+[node name="TestEnemy" parent="." instance=ExtResource("4_og3u7")]
+position = Vector2(923, 262)
 
 [node name="Ball" parent="." instance=ExtResource("1_1be8g")]
-position = Vector2(211, 391)
+position = Vector2(923, 524)
 
-[node name="Projectile_Spawner" parent="." instance=ExtResource("4_6shqm")]
-position = Vector2(206, 169)
+[node name="HUD" parent="." instance=ExtResource("6_ie68a")]
+
+[connection signal="lives_changed" from="Player" to="HUD" method="update_lives"]
+[connection signal="enemy_lives_changed" from="TestEnemy" to="HUD" method="update_enemy_lives"]

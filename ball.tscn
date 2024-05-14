@@ -1,7 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://be0u0pshybx7g"]
+[gd_scene load_steps=10 format=3 uid="uid://be0u0pshybx7g"]
 
 [ext_resource type="Script" path="res://ball.gd" id="1_vbnqp"]
 [ext_resource type="Texture2D" uid="uid://clx36qilrjfwy" path="res://assets/ball.png" id="2_rnhng"]
+[ext_resource type="AudioStream" uid="uid://b0tcc2i8rvn7y" path="res://assets/sounds/hit.wav" id="3_mg1em"]
+[ext_resource type="AudioStream" uid="uid://mmri1sesnwv1" path="res://assets/sounds/hit-C.wav" id="4_sj6m2"]
+[ext_resource type="AudioStream" uid="uid://ct8comcdfhmw2" path="res://assets/sounds/hit-D.wav" id="5_e6ikc"]
+[ext_resource type="AudioStream" uid="uid://b1rspiol13hw3" path="res://assets/sounds/hit-E.wav" id="6_0fl0a"]
+[ext_resource type="AudioStream" uid="uid://binx15gkye4hw" path="res://assets/sounds/hit-F.wav" id="7_mchin"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_db5nu"]
 friction = 0.0
@@ -10,13 +15,13 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_61u0l"]
 radius = 60.0333
 
-[node name="Ball" type="RigidBody2D"]
+[node name="Ball" type="RigidBody2D" groups=["ball"]]
 physics_material_override = SubResource("PhysicsMaterial_db5nu")
 lock_rotation = true
+max_contacts_reported = 1
+contact_monitor = true
 linear_damp_mode = 1
-linear_damp = 0.01
 angular_damp_mode = 1
-constant_force = Vector2(0, 50)
 script = ExtResource("1_vbnqp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,8 +32,30 @@ texture = ExtResource("2_rnhng")
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_61u0l")
 
+[node name="Area2D" type="Area2D" parent="." groups=["ball"]]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_61u0l")
+
 [node name="Boost" type="Timer" parent="."]
 wait_time = 3.5
 one_shot = true
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mg1em")
+
+[node name="hit1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sj6m2")
+
+[node name="hit2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_e6ikc")
+
+[node name="hit3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_0fl0a")
+
+[node name="hit4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_mchin")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Boost" to="." method="_on_boost_timeout"]

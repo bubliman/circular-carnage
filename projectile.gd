@@ -12,11 +12,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	position += speed * direction * delta
-	if position.x > screensize.x:
-		queue_free()
-	if position.y > screensize.y:
-		queue_free()
 
 func shoot(_speed, _direction):
 	speed = _speed
 	direction = _direction
+
+
+func _on_area_entered(area):
+	if area.is_in_group("player"):
+		queue_free()
+	if area.is_in_group("ball"):
+		queue_free()
